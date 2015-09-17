@@ -1,23 +1,23 @@
 /**
- * Ö÷³¡¾°
+ * ä¸»åœºæ™¯
  */
 var MainScene = cc.Scene.extend({
     onEnter: function () {
         this._super();
 
-        // Ìí¼Ó±³¾°²ã
+        // æ·»åŠ èƒŒæ™¯å±‚
         Data.bgLayer = new BgLayer();
         this.addChild(Data.bgLayer, -1, 0);
 
-        // Ìí¼Ó¿ªÊ¼²Ëµ¥²ã
-        Data.startMenuLayer = new StartMenuLayer();
-        this.addChild(Data.startMenuLayer);
+        // æ·»åŠ èœå•å±‚
+        Data.menuLayer = new MenuLayer();
+        this.addChild(Data.menuLayer);
 
-        // Ìí¼Ó·ÖÊı²ã
+        // æ·»åŠ åˆ†æ•°å±‚
         Data.scoreLayer = new ScoreLayer();
         this.addChild(Data.scoreLayer);
 
-        // Ìí¼ÓÓÎÏ·²ã
+        // æ·»åŠ æ¸¸æˆå±‚
         Data.gameLayer = new GameLayer();
         this.addChild(Data.gameLayer);
     }

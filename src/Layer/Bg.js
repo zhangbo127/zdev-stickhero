@@ -1,13 +1,12 @@
 /**
- * ±³¾°²ã
+ * èƒŒæ™¯å±‚
  */
 var BgLayer = cc.Layer.extend({
     ctor: function () {
         this._super();
-        this._init();
-        return true;
+        this._initLayer();
     },
-    _init: function () {
+    _initLayer: function () {
 
         var bgIndex = Math.floor(cc.random0To1()*4);
         var bgRes = res['bg' + bgIndex];

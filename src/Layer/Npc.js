@@ -1,93 +1,93 @@
 /**
- * NPC≤„
+ * NPCÂ±Ç
  */
 var NpcLayer = cc.Layer.extend({
     _sfc: null,
-    _sprite: null,
+    npcSprite: null,
     ctor: function () {
         this._super();
-        this._initSprite();
+        this._initLayer();
     },
-    _initSprite: function () {
+    _initLayer: function () {
 
-        // ¥¥Ω®æ´¡È÷°ª∫¥Ê
+        // ÂàõÂª∫Á≤æÁÅµÂ∏ßÁºìÂ≠ò
         this._sfc = cc.spriteFrameCache;
         this._sfc.addSpriteFrames(res.npcShakePlist, res.npcShakePng);
         this._sfc.addSpriteFrames(res.npcKickPlist, res.npcKickPng);
         this._sfc.addSpriteFrames(res.npcWalkPlist, res.npcWalkPng);
         this._sfc.addSpriteFrames(res.npcYaoPlist, res.npcYaoPng);
 
-        // ¥¥Ω®æ´¡È
+        // ÂàõÂª∫Á≤æÁÅµ
         var npcSprite = new cc.Sprite('#d0001.png');
         var npcSize = npcSprite.getContentSize();
         npcSprite.setScale(1, 1);
         npcSprite.x = cc.winSize.width / 2;
-        npcSprite.y = cc.winSize.height / 2;
+        npcSprite.y = Data.firstPillarSize.height - npcSize.height / 2;
         this.addChild(npcSprite);
-        this._sprite = npcSprite;
+        this.npcSprite = npcSprite;
     },
     setShake: function () {
 
         this._sprite.stopAllActions();
 
         var animFrames = [];
-        var str = "";
+        var str = '';
         var frame;
         for (var i = 1; i < 10; i++) {
-            str = "dq000" + i + ".png";
+            str = 'dq000' + i + '.png';
             frame = this._sfc.getSpriteFrame(str);
             animFrames.push(frame);
         }
 
         var animation = new cc.Animation(animFrames, 0.1);
-        this._sprite.runAction(cc.animate(animation).repeatForever());
+        this.npcSprite.runAction(cc.animate(animation).repeatForever());
     },
-    setWalk: function () {
+    setWalk: function (speed) {
 
-        this._sprite.stopAllActions();
+        this.npcSprite.stopAllActions();
 
         var animFrames = [];
-        var str = "";
+        var str = '';
         var frame;
         for (var i = 1; i < 10; i++) {
-            str = "z000" + i + ".png";
+            str = 'z000' + i + '.png';
             frame = this._sfc.getSpriteFrame(str);
             animFrames.push(frame);
         }
 
-        var animation = new cc.Animation(animFrames, 0.1);
-        this._sprite.runAction(cc.animate(animation).repeatForever());
+        var animation = new cc.Animation(animFrames, speed);
+        this.npcSprite.runAction(cc.animate(animation).repeatForever());
     },
     setKick: function () {
 
-        this._sprite.stopAllActions();
+        this.npcSprite.stopAllActions();
 
         var animFrames = [];
-        var str = "";
+        var str = '';
         var frame;
         for (var i = 1; i < 10; i++) {
-            str = "t000" + i + ".png";
+            str = 't000' + i + '.png';
             frame = this._sfc.getSpriteFrame(str);
             animFrames.push(frame);
         }
 
         var animation = new cc.Animation(animFrames, 0.05);
-        this._sprite.runAction(cc.animate(animation));
+        this.npcSprite.runAction(cc.animate(animation));
     },
     setYao: function () {
 
-        this._sprite.stopAllActions();
+        this.npcSprite.stopAllActions();
 
         var animFrames = [];
-        var str = "";
+        var str = '';
         var frame;
         for (var i = 1; i < 10; i++) {
-            str = "d00" + (i < 10 ? ("0" + i) : i) + ".png";
+            str = 'd00' + (i < 10 ? ('0' + i) : i) + '.png';
             frame = this._sfc.getSpriteFrame(str);
             animFrames.push(frame);
         }
 
         var animation = new cc.Animation(animFrames, 0.1);
-        this._sprite.runAction(cc.animate(animation).repeatForever());
+        this.npcSprite.runAction(cc.animate(animation).repeatForever());
     }
 });

@@ -1,8 +1,14 @@
 /**
- * 全局变量
+ * 鍏ㄥ眬鍙橀噺
  */
 var Data = {
     bgLayer: null,
     scoreLayer: null,
-    scoreLable: null
+    scoreLable: null,
+    gameLayer: null,
+    npcLayer: null,
+    firstPillarSize: {
+        width: 180,
+        height: 400
+    }
 };

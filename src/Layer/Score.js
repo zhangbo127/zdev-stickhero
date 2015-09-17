@@ -1,13 +1,12 @@
 /**
- * ·ÖÊý²ã
+ * åˆ†æ•°å±‚
  */
 var ScoreLayer = cc.Layer.extend({
     ctor: function () {
         this._super();
-        this._init();
-        return;
+        this._initLayer();
     },
-    _init: function () {
+    _initLayer: function () {
 
         var bgSprite = new cc.Sprite(res.bgScore);
         bgSprite.x = cc.winSize.width / 2;

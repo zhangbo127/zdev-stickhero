@@ -1,25 +1,24 @@
 /**
- * ¿ªÊ¼²Ëµ¥²ã
+ * èœå•å±‚
  */
-var StartMenuLayer = cc.Layer.extend({
+var MenuLayer = cc.Layer.extend({
     ctor: function () {
         this._super();
-        this._init();
-        return true;
+        this._initLayer();
     },
-    _init: function () {
+    _initLayer: function () {
 
-        // ´´½¨¿ªÊ¼²Ëµ¥Ïî
+        // åˆ›å»ºå¼€å§‹èœå•é¡¹
         var startMenuItem = new cc.MenuItemImage(
             res.btnStartNormal,
             res.btnStartSelect,
             this.onStart, this);
 
-        // ´´½¨¿ªÊ¼²Ëµ¥
+        // åˆ›å»ºå¼€å§‹èœå•
         var startMenu = new cc.Menu(startMenuItem);
         startMenu.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
 
-        // ÏÔÊ¾¿ªÊ¼²Ëµ¥
+        // æ˜¾ç¤ºå¼€å§‹èœå•
         this.addChild(startMenu);
     },
     onStart: function () {

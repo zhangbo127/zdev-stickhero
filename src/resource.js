@@ -13,7 +13,8 @@ var res = {
     npcWalkPlist : "res/npc_walk.plist",
     npcWalkPng : "res/npc_walk.png",
     npcYaoPlist : "res/npc_yao.plist",
-    npcYaoPng : "res/npc_yao.png"
+    npcYaoPng : "res/npc_yao.png",
+    blackPng : "res/black.png"
 };
 
 var g_resources = [];
