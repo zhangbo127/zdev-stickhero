@@ -24,6 +24,6 @@ var StartMenuLayer = cc.Layer.extend({
     },
     onStart: function () {
         this.removeFromParent();
-        Data.scoreLayer.setVisible(true);
+        Data.gameLayer.startGame();
     }
 });

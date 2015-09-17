@@ -2,102 +2,92 @@
  * NPC层
  */
 var NpcLayer = cc.Layer.extend({
-    npcSFC: null,
-    npcSprite: null,
+    _sfc: null,
+    _sprite: null,
     ctor: function () {
         this._super();
-        this._init();
-        return true;
+        this._initSprite();
     },
-    _init: function () {
+    _initSprite: function () {
 
-        // 添加精灵帧缓存
-        var npcSFC = cc.spriteFrameCache;
-        npcSFC.addSpriteFrames(res.npcShakePlist, res.npcShakePng);
-        npcSFC.addSpriteFrames(res.npcKickPlist, res.npcKickPng);
-        npcSFC.addSpriteFrames(res.npcWalkPlist, res.npcWalkPng);
-        npcSFC.addSpriteFrames(res.npcYaoPlist, res.npcYaoPng);
-        this.npcSFC = npcSFC;
+        // 创建精灵帧缓存
+        this._sfc = cc.spriteFrameCache;
+        this._sfc.addSpriteFrames(res.npcShakePlist, res.npcShakePng);
+        this._sfc.addSpriteFrames(res.npcKickPlist, res.npcKickPng);
+        this._sfc.addSpriteFrames(res.npcWalkPlist, res.npcWalkPng);
+        this._sfc.addSpriteFrames(res.npcYaoPlist, res.npcYaoPng);
 
-        // 添加精灵
+        // 创建精灵
         var npcSprite = new cc.Sprite('#d0001.png');
         var npcSize = npcSprite.getContentSize();
         npcSprite.setScale(1, 1);
         npcSprite.x = cc.winSize.width / 2;
         npcSprite.y = cc.winSize.height / 2;
         this.addChild(npcSprite);
-        this.npcSprite = npcSprite;
-
-        // 添加事件监听
-        cc.eventManager.addListener({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
-            onTouchBegan: this.onTouchBegan,
-            onTouchEnded: this.onTouchEnded
-        }, this);
+        this._sprite = npcSprite;
     },
-    setNpcShake: function () {
+    setShake: function () {
 
-        this.npcSprite.stopAllActions();
+        this._sprite.stopAllActions();
 
         var animFrames = [];
         var str = "";
         var frame;
         for (var i = 1; i < 10; i++) {
             str = "dq000" + i + ".png";
-            frame = this.npcSFC.getSpriteFrame(str);
+            frame = this._sfc.getSpriteFrame(str);
             animFrames.push(frame);
         }
 
         var animation = new cc.Animation(animFrames, 0.1);
-        this.npcSprite.runAction(cc.animate(animation).repeatForever());
+        this._sprite.runAction(cc.animate(animation).repeatForever());
     },
-    setNpcWalk: function () {
+    setWalk: function () {
 
-        this.npcSprite.stopAllActions();
+        this._sprite.stopAllActions();
 
         var animFrames = [];
         var str = "";
         var frame;
         for (var i = 1; i < 10; i++) {
             str = "z000" + i + ".png";
-            frame = this.npcSFC.getSpriteFrame(str);
+            frame = this._sfc.getSpriteFrame(str);
             animFrames.push(frame);
         }
 
         var animation = new cc.Animation(animFrames, 0.1);
-        this.npcSprite.runAction(cc.animate(animation).repeatForever());
+        this._sprite.runAction(cc.animate(animation).repeatForever());
     },
-    setNpcKick: function () {
+    setKick: function () {
 
-        this.npcSprite.stopAllActions();
+        this._sprite.stopAllActions();
 
         var animFrames = [];
         var str = "";
         var frame;
         for (var i = 1; i < 10; i++) {
             str = "t000" + i + ".png";
-            frame = this.npcSFC.getSpriteFrame(str);
+            frame = this._sfc.getSpriteFrame(str);
             animFrames.push(frame);
         }
 
         var animation = new cc.Animation(animFrames, 0.05);
-        this.npcSprite.runAction(cc.animate(animation));
+        this._sprite.runAction(cc.animate(animation));
     },
-    setNpcYao: function () {
+    setYao: function () {
 
-        this.npcSprite.stopAllActions();
+        this._sprite.stopAllActions();
 
         var animFrames = [];
         var str = "";
         var frame;
         for (var i = 1; i < 10; i++) {
             str = "d00" + (i < 10 ? ("0" + i) : i) + ".png";
-            frame = this.npcSFC.getSpriteFrame(str);
+            frame = this._sfc.getSpriteFrame(str);
             animFrames.push(frame);
         }
 
         var animation = new cc.Animation(animFrames, 0.1);
-        this.npcSprite.runAction(cc.animate(animation).repeatForever());
+        this._sprite.runAction(cc.animate(animation).repeatForever());
     }
 });

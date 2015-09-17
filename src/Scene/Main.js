@@ -17,9 +17,8 @@ var MainScene = cc.Scene.extend({
         Data.scoreLayer = new ScoreLayer();
         this.addChild(Data.scoreLayer);
 
-        // ÃÌº”NPC≤„
-        Data.npcLayer = new NpcLayer();
-        Data.npcLayer.setNpcYao();
-        this.addChild(Data.npcLayer);
+        // ÃÌº””Œœ∑≤„
+        Data.gameLayer = new GameLayer();
+        this.addChild(Data.gameLayer);
     }
 });

@@ -14,9 +14,10 @@
         "src/resource.js",
         "src/Common/Data.js",
         "src/Scene/Main.js",
+        "src/Layer/Npc.js",
         "src/Layer/Menu.js",
         "src/Layer/Bg.js",
         "src/Layer/Score.js",
-        "src/Layer/Npc.js"
+        "src/Layer/Game.js"
     ]
 }
