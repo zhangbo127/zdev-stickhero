@@ -18,17 +18,17 @@ var NpcLayer = cc.Layer.extend({
         this._sfc.addSpriteFrames(res.npcYaoPlist, res.npcYaoPng);
 
         // 创建精灵
-        var npcSprite = new cc.Sprite('#d0001.png');
-        var npcSize = npcSprite.getContentSize();
-        npcSprite.setScale(1, 1);
-        npcSprite.x = cc.winSize.width / 2;
-        npcSprite.y = Data.firstPillarSize.height - npcSize.height / 2;
-        this.addChild(npcSprite);
-        this.npcSprite = npcSprite;
+        var spr = new cc.Sprite('#d0001.png');
+        var sprSize = spr.getContentSize();
+        spr.setScale(1, 1);
+        spr.x = cc.winSize.width / 2;
+        spr.y = Data.firstPillarSize.height + sprSize.height / 2;
+        this.addChild(spr);
+        this.npcSprite = spr;
     },
     setShake: function () {
 
-        this._sprite.stopAllActions();
+        this.npcSprite.stopAllActions();
 
         var animFrames = [];
         var str = '';

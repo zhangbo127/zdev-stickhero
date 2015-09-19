@@ -9,6 +9,6 @@ var Data = {
     npcLayer: null,
     firstPillarSize: {
         width: 180,
-        height: 400
+        height: 360
     }
 };

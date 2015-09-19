@@ -55,6 +55,7 @@ cc.game.onStart = function(){
     cc.view.enableRetina(false);
     // Adjust viewport meta
     cc.view.adjustViewPort(true);
+    cc.view.enableAutoFullScreen(false);
     // Setup the resolution policy and design resolution size
     cc.view.setDesignResolutionSize(640, 1136, cc.ResolutionPolicy.SHOW_ALL);
     // The game will be resized when browser size change
