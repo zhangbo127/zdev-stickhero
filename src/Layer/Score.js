@@ -5,6 +5,7 @@ var ScoreLayer = cc.Layer.extend({
     ctor: function () {
         this._super();
         this._initLayer();
+        return true;
     },
     _initLayer: function () {
 
@@ -22,5 +23,12 @@ var ScoreLayer = cc.Layer.extend({
         Data.scoreLable = scoreLable;
 
         this.setVisible(false);
+    },
+    /**
+     * 重置分数
+     */
+    resetScore: function() {
+        Data.scoreLable.setString(0);
+        Data.scoreLayer.setVisible(true);
     }
 });
