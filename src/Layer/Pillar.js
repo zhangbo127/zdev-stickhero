@@ -3,8 +3,8 @@
  */
 var PillarLayer = cc.Layer.extend({
     curSpaceWidth: 0,   // 当前间距
-    curPillarWidth: 0,  // 当前柱子宽度
-    prePillarRightOffsetX: 0,  // 前一根柱子右侧的横坐标偏移量
+    newPillarWidth: 0,  // 新柱子宽度
+    prePillarRightOffsetX: 0,  // 旧柱子右侧的横坐标偏移量
     ctor: function () {
         this._super();
         this._initLayer();
@@ -23,27 +23,31 @@ var PillarLayer = cc.Layer.extend({
         spr.y = Data.firstPillarSize.height / 2;
         this.addChild(spr);
 
-        // 获取前一根柱子右侧的横坐标偏移量
+        // 设置前一根柱子右侧的横坐标偏移量
         this.prePillarRightOffsetX = Data.firstPillarSize.width;
+
+        // 设置前一根柱子的宽度
+        this.prePillarWidth = Data.firstPillarSize.width;
     },
     /**
-     * 添加柱子
+     * 添加新的柱子
      */
-    addPillar: function () {
+    addNewPillar: function () {
 
         // 生成新的柱子精灵的宽度（10-120）
         var sprRdWidth = cc.random0To1() * 120 + 10;
+        this.newPillarWidth = sprRdWidth;
 
         // 添加新的柱子精灵
         var spr = new cc.Sprite(res.blackPng);
         var sprSize = spr.getContentSize();
         spr.setScale(sprRdWidth / sprSize.width, Data.firstPillarSize.height / sprSize.height);
-        spr.x = Data.gameLayer.offsetX + Data.firstPillarSize.width + sprRdWidth / 2;
+        spr.x = Data.gameLayer.offsetX + this.prePillarWidth - (sprRdWidth / 2);
         spr.y = Data.firstPillarSize.height / 2;
         this.addChild(spr);
 
         // 计算出最大的间距
-        var maxSpaceWidth = cc.winSize.width - this.prePillarRightOffsetX - sprRdWidth;
+        var maxSpaceWidth = cc.winSize.width - this.prePillarWidth - sprRdWidth;
 
         // 计算出间距的因子，确保间距不能太大也不能太小（0.3 - 0.8）
         var ratio = (cc.random0To1() + 0.6) / 2;

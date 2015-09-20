@@ -17,7 +17,9 @@
         "src/Layer/Menu.js",
         "src/Layer/Bg.js",
         "src/Layer/Score.js",
+        "src/Layer/Event.js",
         "src/Layer/Npc.js",
+        "src/Layer/Stick.js",
         "src/Layer/Pillar.js",
         "src/Layer/Game.js"
     ]

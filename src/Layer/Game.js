@@ -2,8 +2,6 @@
  * 游戏层
  */
 var GameLayer = cc.Layer.extend({
-    stickSprite: null,  // 棍子精灵
-    isStickSpriteReady: false,  // 棍子精灵是否启用
     offsetX: 0,
     ctor: function () {
         this._super();
@@ -18,71 +16,89 @@ var GameLayer = cc.Layer.extend({
 
         // 添加NPC层
         Data.npcLayer = new NpcLayer();
-        Data.npcLayer.setYao();
+        Data.npcLayer.setNpcYao();
         this.addChild(Data.npcLayer);
-
-        // 添加事件层
-        Data.eventLayer = new EventLayer();
     },
     startGame: function () {
 
-        // 显示分数层
-        Data.scoreLable.setString(0);
-        Data.scoreLayer.setVisible(true);
-
+        // 重置分数
+        Data.scoreLayer.resetScore();
 
         // 设置猴子为跑步状态
-        Data.npcLayer.setWalk(0.2);
-        Data.npcLayer.npcSprite.runAction
+        Data.npcLayer.setNpcWalk(0.2);
+        Data.npcLayer.getNpcSpr().runAction
         (
             cc.sequence
             (
                 cc.moveBy(0.2, cc.p(Data.firstPillarSize.width / 2 - 50, 0)),
-                cc.callFunc(Data.npcLayer.setYao, Data.npcLayer),
-                cc.callFunc(Data.pillarLayer.addPillar, Data.pillarLayer),
-                cc.callFunc(function(){
+                cc.callFunc(Data.npcLayer.setNpcYao, Data.npcLayer),
+                cc.callFunc(Data.pillarLayer.addNewPillar, Data.pillarLayer),
+                cc.callFunc(function () {
+                    // 添加棍子层
                     Data.stickLayer = new StickLayer();
+                    Data.stickLayer.setStickStatus(true);
+                    this.addChild(Data.stickLayer);
+                }, this),
+                cc.callFunc(function () {
+                    // 添加事件层
+                    Data.eventLayer = new EventLayer();
+                    this.addChild(Data.eventLayer);
                 }, this)
             )
         );
 
         // 移动游戏层
         this.offsetX = (cc.winSize.width - Data.firstPillarSize.width) / 2;
-        this.runAction(cc.sequence(cc.moveBy(0.2, cc.p(-this.offsetX, this._position.y))));
+        this.runAction(cc.sequence(
+            cc.moveBy(0.2, cc.p(-this.offsetX, this._position.y))
+        ));
     },
     /**
-     * 游戏结束处理
+     * 继续游戏
      */
-    gameOver: function (distance) {
+    keepGame: function () {
 
-        // 设置NPC为跑步状态
-        var npcWalkSpeed = distance / 30;
-        Data.npcLayer.setWalk(npcWalkSpeed);
+        var curScore = Data.scoreLayer.incScore();
 
-        // 计算NPC跑步时间
-        var npcWalkDuration = distance / 500;
-        Data.npcLayer.npcSprite.runAction
+        // 替换最佳分数
+        if (cc.sys.localStorage.getItem("best_score") < curScore) {
+            cc.sys.localStorage.setItem("best_score", curScore);
+        }
+
+        // 设置NPC摇
+        Data.npcLayer.setNpcYao();
+
+        // 计算游戏层的偏移量
+        var offsetX = cc.winSize.width - Data.pillarLayer.curSpaceWidth - Data.pillarLayer.prePillarRightOffsetX;
+        this.offsetX += offsetX;
+
+        // 移动游戏层
+        this.runAction
         (
             cc.sequence
             (
-                cc.moveBy(npcWalkDuration, cc.p(distance, 0)),
-                cc.callFunc(this.gameFaile, this)
+                cc.moveBy(0.3, cc.p(-this.offsetX, 0)),
+                cc.callFunc(Data.pillarLayer.addPillar, Data.pillarLayer)
             )
         );
     },
-    gameFaile: function(){
+    /**
+     * 结束游戏
+     */
+    overGame: function () {
 
-        Data.npcLayer.setYao();
-        Data.npcLayer.npcSprite.runAction
+        // 设置NPC掉落
+        Data.npcLayer.setNpcYao();
+        Data.npcLayer.getNpcSpr().runAction
         (
             cc.sequence
             (
-                cc.moveTo(0.3, cc.p(Data.npcLayer.npcSprite.getPositionX(), -200))
+                cc.moveTo(0.3, cc.p(Data.npcLayer.getNpcSpr().getPositionX(), -200))
             )
         );
 
-        // 收起棍子
-        this.stickSprite.runAction
+        // 设置棍子掉落
+        Data.stickLayer.getStickSpr().runAction
         (
             cc.sequence(cc.rotateBy(0.1, 90))
         );

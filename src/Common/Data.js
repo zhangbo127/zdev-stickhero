@@ -4,8 +4,8 @@
 var Data = {
     bgLayer: null,
     scoreLayer: null,
-    scoreLable: null,
     gameLayer: null,
+    stickLayer: null,
     npcLayer: null,
     firstPillarSize: {
         width: 180,
