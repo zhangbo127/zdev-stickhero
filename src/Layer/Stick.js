@@ -14,7 +14,7 @@ var StickLayer = cc.Layer.extend({
         var spr = new cc.Sprite(res.blackPng);
         var sprSize = spr.getContentSize();
         spr.setAnchorPoint(cc.p(0.5, 0));
-        spr.x = Data.gameLayer.offsetX + Data.pillarLayer.prePillarRightOffsetX - (sprSize.width / 2);
+        spr.x = Data.pillarLayer.prePillarRightOffsetX - (sprSize.width / 2);
         spr.y = Data.firstPillarSize.height;
         spr.setScaleY(0);
         this.addChild(spr);
@@ -60,6 +60,7 @@ var StickLayer = cc.Layer.extend({
         // 计算能通过的最小长度和最大长度
         var minLen = Data.pillarLayer.curSpaceWidth + 5;
         var maxLen = Data.pillarLayer.curSpaceWidth + Data.pillarLayer.newPillarWidth - 5;
+
 
         console.log(minLen, maxLen, stickSprHg);
 

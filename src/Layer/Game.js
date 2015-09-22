@@ -12,6 +12,7 @@ var GameLayer = cc.Layer.extend({
 
         // 添加柱子层
         Data.pillarLayer = new PillarLayer();
+        Data.pillarLayer.addFirstPillar();
         this.addChild(Data.pillarLayer);
 
         // 添加NPC层
@@ -69,16 +70,16 @@ var GameLayer = cc.Layer.extend({
         Data.npcLayer.setNpcYao();
 
         // 计算游戏层的偏移量
-        var offsetX = cc.winSize.width - Data.pillarLayer.curSpaceWidth - Data.pillarLayer.prePillarRightOffsetX;
-        this.offsetX += offsetX;
+        var moveDistance = Data.pillarLayer.curSpaceWidth + Data.pillarLayer.prePillarWidth;
+        this.offsetX += moveDistance;
 
         // 移动游戏层
         this.runAction
         (
             cc.sequence
             (
-                cc.moveBy(0.3, cc.p(-this.offsetX, 0)),
-                cc.callFunc(Data.pillarLayer.addPillar, Data.pillarLayer)
+                cc.moveBy(0.3, cc.p(-moveDistance, 0)),
+                cc.callFunc(Data.pillarLayer.addNewPillar, Data.pillarLayer)
             )
         );
     },
