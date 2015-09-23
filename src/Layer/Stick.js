@@ -14,7 +14,7 @@ var StickLayer = cc.Layer.extend({
         var spr = new cc.Sprite(res.blackPng);
         var sprSize = spr.getContentSize();
         spr.setAnchorPoint(cc.p(0.5, 0));
-        spr.x = Data.pillarLayer.prePillarRightOffsetX - (sprSize.width / 2);
+        spr.x = Data.pillarLayer.curPillarRsideOffsetX - sprSize.width;
         spr.y = Data.firstPillarSize.height;
         spr.setScaleY(0);
         this.addChild(spr);
@@ -61,15 +61,13 @@ var StickLayer = cc.Layer.extend({
         var minLen = Data.pillarLayer.curSpaceWidth + 5;
         var maxLen = Data.pillarLayer.curSpaceWidth + Data.pillarLayer.newPillarWidth - 5;
 
-
-        console.log(minLen, maxLen, stickSprHg);
-
         // 判断是否结束游戏
         var isGameOver = true;
         if (minLen <= stickSprHg && stickSprHg <= maxLen) {
             var isGameOver = false;
         }
 
+        // 移动NPC到棍子
         Data.npcLayer.moveNpcTo(stickSprHg, isGameOver);
     }
 });

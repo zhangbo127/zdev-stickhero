@@ -19,11 +19,21 @@ var GameLayer = cc.Layer.extend({
         Data.npcLayer = new NpcLayer();
         Data.npcLayer.setNpcYao();
         this.addChild(Data.npcLayer);
+
+        // 添加棍子层
+        Data.stickLayer = new StickLayer();
+        this.addChild(Data.stickLayer);
+
+        // 添加事件层
+        Data.eventLayer = new EventLayer();
+        this.addChild(Data.eventLayer);
+
     },
     startGame: function () {
 
         // 重置分数
         Data.scoreLayer.resetScore();
+
 
         // 设置猴子为跑步状态
         Data.npcLayer.setNpcWalk(0.2);
@@ -35,15 +45,7 @@ var GameLayer = cc.Layer.extend({
                 cc.callFunc(Data.npcLayer.setNpcYao, Data.npcLayer),
                 cc.callFunc(Data.pillarLayer.addNewPillar, Data.pillarLayer),
                 cc.callFunc(function () {
-                    // 添加棍子层
-                    Data.stickLayer = new StickLayer();
                     Data.stickLayer.setStickStatus(true);
-                    this.addChild(Data.stickLayer);
-                }, this),
-                cc.callFunc(function () {
-                    // 添加事件层
-                    Data.eventLayer = new EventLayer();
-                    this.addChild(Data.eventLayer);
                 }, this)
             )
         );
@@ -69,9 +71,8 @@ var GameLayer = cc.Layer.extend({
         // 设置NPC摇
         Data.npcLayer.setNpcYao();
 
-        // 计算游戏层的偏移量
-        var moveDistance = Data.pillarLayer.curSpaceWidth + Data.pillarLayer.prePillarWidth;
-        this.offsetX += moveDistance;
+        // 计算游戏层要移动的距离
+        var moveDistance = Data.pillarLayer.curSpaceWidth + Data.pillarLayer.curPillarWidth;
 
         // 移动游戏层
         this.runAction
@@ -82,6 +83,9 @@ var GameLayer = cc.Layer.extend({
                 cc.callFunc(Data.pillarLayer.addNewPillar, Data.pillarLayer)
             )
         );
+
+        // 更新游戏层偏移量
+        this.offsetX += moveDistance;
     },
     /**
      * 结束游戏
